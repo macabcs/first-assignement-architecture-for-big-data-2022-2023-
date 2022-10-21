@@ -1,11 +1,18 @@
 from abc import abstractmethod
+from concurrent.futures import thread
 from dataclasses import dataclass
 from turtle import update
+from xmlrpc.client import boolean
 from sql_conn import Sql_conn
+import threading
 
+class query:
+    def __init__(self, listColumn, listTables, listCondition) -> None:
+        pass
+    def checkInjection(self) -> boolean:
+        pass
 
-
-class Data:
+class Data:  #format to represent data read from OneStream and to be written on the hist databases
     pass
 
 class BatchSqlExtractor:
@@ -14,9 +21,13 @@ class BatchSqlExtractor:
         self.database_connection = self.connect(adress,port,credential) #control update time
         self.update = updateTime
         self.queryParams = query
-        self.__first_update()
+        x = threading.Thread(target= self.synchronizer)
+        x.start()
 
-    
+    def synchronizer(self):
+        while(self.orariodiadesso> self.lastupdate+self.updateTime): #sistemo ma idea è questa
+            self.update()
+
     def __first_update(self) -> None:
         check_update() #creare update per capire
         query = f"SELECT * from TABLENAME when timestamp >= {self.update}" #wrote a good query
@@ -29,7 +40,7 @@ class BatchSqlExtractor:
         pass
     
     @abstractmethod
-    def __update_copy_dataset(self,data) -> None:
+    def __update_copy_dataset(self,data :Data) -> None:
         pass
 
     @abstractmethod
