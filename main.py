@@ -42,7 +42,6 @@ class BatchSqlExtractor:
         listOfQuerys =self.readLog()    # retrieve executed query
         filteredQuerys = self.filterQuery(listOfQuerys)     # remove select query
         refactoredQuerys = self.refactorQuery(filteredQuerys)      # adding timestamp value 
-        
         for query in refactoredQuerys:  
              self.histDBConnection.execute_query(query)     #execute every new query (insert, update and delete)
         
@@ -78,6 +77,6 @@ class BatchSqlExtractor:
     @abstractmethod
     def __connect(self, database:Database) ->Sql_conn :
         pass
-
+    def filterQuery(listOfQuerys): pass
  #   def read
 
