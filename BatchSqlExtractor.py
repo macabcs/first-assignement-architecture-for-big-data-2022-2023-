@@ -6,8 +6,8 @@ import time
 
 class BatchSqlExtractor:
 
-    def __init__(self,oneStreamDb: Database, histDb: Database, query : query) -> None: #add paramse for the secondo db, create second database in attribute
-        self.oneStreamConnection= self.__connect(oneStreamDb) #control update time
+    def __init__(self,sourceDB: Database, histDb: Database, query : query) -> None: #add paramse for the secondo db, create second database in attribute
+        self.oneStreamConnection= self.__connect(sourceDB) #control update time
         self.histDBConnection = self.__connect(histDb)
         self.lastUpdate = 0
         self.queryParams = query
@@ -42,7 +42,7 @@ class BatchSqlExtractor:
     def __updateCondition(self) -> bool:  #implement the update policy based on the Month End Closing activities and the OneStream's load balance 
         pass
 
-    def __firsUpdate(self) -> None: 
+    def __firstUpdate(self) -> None: 
         query = f"SELECT{self.queryParams.columns} \
              from {self.queryParams.tables}"
         self.lastUpdate= time.time()
