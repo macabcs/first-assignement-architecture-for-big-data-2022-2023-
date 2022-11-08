@@ -11,8 +11,7 @@ class query:
 
 class Data:  #class used to interpret and represent data read from OneStream and to write on the hist databases
     pass
-
-class Database:
+class DatabaseCredential:
     def __init__(self,address,port,user,password) -> None:
         self.address=address
         self.port=port
