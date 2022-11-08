@@ -1,8 +1,13 @@
+from abc import abstractmethod
+
 class query:
-    def __init__(self, listTables, listColumns, listCondition) -> None:
+    def __init__(self, string) -> None:
+        self.operation, self.listTables, self.listColumns, self.listCondition = self.ParseString(string)
+    @abstractmethod
+    def checkSqlInjection(self) -> bool:
         pass
-    def checkInjection(self) -> bool:
-        pass
+    @abstractmethod
+    def parseString(self, string): pass
 
 class Data:  #class used to interpret and represent data read from OneStream and to write on the hist databases
     pass
