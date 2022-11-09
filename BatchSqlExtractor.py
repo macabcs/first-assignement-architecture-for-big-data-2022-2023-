@@ -3,6 +3,10 @@ from helperDT import Database,query,Data
 import threading
 import time
 
+class DBconnection:
+    def execute_query(self, query): pass
+    def getChanges(self,timestamp):pass
+    
 class BatchSqlExtractor:
 
     def __init__(self,sourceDB: Database, histDb: Database) -> None: #add paramse for the secondo db, create second database in attribute
@@ -46,10 +50,7 @@ class BatchSqlExtractor:
         self.__insertHistDatabase(data)
         
     @abstractmethod
-    def __connect(self, database:Database) ->DBconnection :
+    def __connect(self, database:Database) -> DBconnection :
         pass
 
 
-class DBconnection:
-    def execute_query(self, query): pass
-    def getChanges(self,timestamp):pass
