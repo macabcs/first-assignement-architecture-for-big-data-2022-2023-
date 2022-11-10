@@ -46,14 +46,8 @@ class BatchSqlExtractor:
             self) -> bool:  # implement the update policy based on the Month End Closing activities and the OneStream's load balance
         pass
 
-    def __fullUpdate(
-            self) -> None:  # He have to do a full copy of operationDb and report it on histDb, and update the lastUpdate field
-        query = f"SELECT{self.queryParams.columns} \
-             from {self.queryParams.tables}"
-        self.lastUpdate = time.time()
-        data = self.__readFromOneStream(query)
-        self.__insertHistDatabase(data)
-
+    def firstUpdate(self):
+        
     @abstractmethod
     def __connect(self, database: Database) -> DBconnection:
         pass
