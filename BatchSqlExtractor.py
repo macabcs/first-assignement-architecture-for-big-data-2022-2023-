@@ -8,6 +8,12 @@ class DBconnection:
     def execute_query(self, queryWithTime): pass
 
     def getChanges(self, timestamp): pass
+    
+    def readAllData(self, database:DB): pass #method for the initial copy of the DB
+    
+    def writeAllData(self, database:DB): pass #method for the initial copy of the DB 
+    
+    
 
 
 class BatchSqlExtractor:
@@ -46,8 +52,19 @@ class BatchSqlExtractor:
             self) -> bool:  # implement the update policy based on the Month End Closing activities and the OneStream's load balance
         pass
 
-    def firstUpdate(self):
+    def firstUpdate(self, database:Source, database:Target): # this method does the initial copy to the histDb
         
+        self.__connnect(self, database: Source) #here we connect to the source database
+        self.__connect(self, database: Target) #and connect to the target histDb 
+        
+        try:
+            readFromSource(self, database: Source)
+            writeToTarget(self, database: Target) 
+            #execution of the data copy
+        except:
+            print("failure reading from source or writing on target")
+            break
+            
     @abstractmethod
     def __connect(self, database: Database) -> DBconnection:
         pass
